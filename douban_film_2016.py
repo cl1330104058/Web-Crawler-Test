@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # author: cl1330104058
-# 抓取豆瓣电影2016榜单
+# 抓取豆瓣电影2016榜单，并存入 MongoDB
 
 import time
 import requests
