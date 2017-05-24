@@ -8,7 +8,6 @@
 import time
 import requests
 from bs4 import BeautifulSoup
-from urllib.error import HTTPError,URLError
 from pymongo import MongoClient
 
 client = MongoClient('localhoat',27017)
@@ -21,10 +20,7 @@ headers = {
 
 
 def get_movie(url):
-    try:
-        page_data = requests.get(url,headers=headers)
-    except (HTTPError,URLError) as e:
-        print(e)
+    page_data = requests.get(url,headers=headers)
     soup = BeautifulSoup(page_data.content,'lxml')
     items = soup.select('div.item')
     for item in items:
