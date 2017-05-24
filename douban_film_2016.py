@@ -22,36 +22,43 @@ headers = {
 def get_movie(url):
     page_data = requests.get(url, headers=headers)
     page_data = page_data.json()  # 因为返回的是 JSON ，所以使用 .json() 函数
-    if page_data['res']['kind_cn'] == 'Top 10':
+    if page_data['res']['kind_cn'] == 'Top 10':  # 如果页面是关于电影TOP10的，运行下列代码
+        # 电影的奖项
         title = page_data['res']['payload']['title'].split('|')
+        # 电影名称
         name = page_data['res']['subject']['title']
-        star = page_data['res']['subject']['rating']
-        description = page_data['res']['payload']['description']
+        # 电影评分
+        rating = page_data['res']['subject']['rating']
+        # 引用的电影评论
+        cate = page_data['res']['payload']['description']
         print('本条信息爬取完毕')
+        # 写入字典，存入数据库
         data = {
             'title': title[0] + title[1],
             'movie_name': name,
-            'star': star,
-            'description': description
+            'rating': rating,
+            'cate': cate
         }
         douban_film.insert_one(data)
-    elif page_data['res']['kind_cn'] == '人物':
+    elif page_data['res']['kind_cn'] == '人物': # 如果页面是关于人物的，运行下列代码
         title = page_data['res']['payload']['title'].split('|')
         name = []
         for n in range(0, 10):
             name.append(page_data['res']['people'][n]['name'])
         print('本条信息爬取完毕')
+        # 写入字典，存入数据库
         data = {
             'title': title[0] + title[1],
             'name': name
         }
         douban_film.insert_one(data)
-    elif page_data['res']['kind_cn'] == 'TOP 5':
+    elif page_data['res']['kind_cn'] == 'TOP 5': # 如果页面是关于电影TOP5 的，运行下列代码
         title = page_data['res']['payload']['title']
         name = page_data['res']['subject']['title']
         star = page_data['res']['subject']['rating']
         description = page_data['res']['payload']['description']
         print('本条信息爬取完毕')
+        # 写入字典，存入数据库
         data = {
             'title': title,
             'movie_name': name,
@@ -59,21 +66,26 @@ def get_movie(url):
             'description': description
         }
         douban_film.insert_one(data)
-    elif page_data['res']['kind_cn'] == '逝者':
+    elif page_data['res']['kind_cn'] == '逝者': # 如果页面是关于2016逝者的，运行下来代码
         title = page_data['res']['payload']['title'].split('|')
         description = page_data['res']['payload']['description']
+        # 写入字典，存入数据库
         people_list = []
         for n in range(0, 9):
             people = {
+                # 逝者中文姓名
                 'name': page_data['res']['people'][n]['name'],
+                # 逝者英文姓名
                 'name_en': page_data['res']['people'][n]['name_en'],
+                # 逝者职业
                 'profession': page_data['res']['people'][n]['profession'],
+                # 逝者年龄
                 'age': page_data['res']['people'][n]['age']
             }
             people_list.append(people)
         print('本条信息爬取完毕')
         data = {
-            'title': title,
+            'title': title[0] + title[1],
             'description': description,
             'people': people_list
         }
@@ -92,4 +104,3 @@ def main():
 
 
 main()
-
