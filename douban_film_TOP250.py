@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+#
 # author : cl1330104058
 #
 # 爬取豆瓣电影TOP250
@@ -54,5 +55,8 @@ def get_movie(url):
 
 urls = ['https://movie.douban.com/top250?start={}'.format(n) for n in range(0,250,25)]
 for url in urls:
+    print('正在爬取第', urls.index(url)+1, '页信息')
     get_movie(url)
     time.sleep(2)
+
+print('爬取完毕')
