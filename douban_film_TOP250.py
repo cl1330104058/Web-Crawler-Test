@@ -11,6 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
+# 创建数据库
 client = MongoClient('localhoat',27017)
 douban = client['douban']
 douban_flim_TOP250 = douban['douban_flim_TOP250']
