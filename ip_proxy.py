@@ -1,6 +1,7 @@
 # -*-coding:utf-8-*-
-#
+# author : cl1330104058
 # 爬取代理 IP
+#
 
 import time
 import requests
