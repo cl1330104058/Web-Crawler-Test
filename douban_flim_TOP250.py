@@ -12,9 +12,9 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 # 创建数据库
-# client = MongoClient('localhoat',27017)
-# douban = client['douban']
-# douban_flim_TOP250 = douban['douban_flim_TOP250']
+client = MongoClient('localhoat',27017)
+douban = client['douban']
+douban_flim_TOP250 = douban['douban_flim_TOP250']
 
 headers = {
     'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 UBrowser/6.1.2716.203 Safari/537.36'
@@ -54,8 +54,7 @@ def get_movie(url):
             'classes':movie_classes,
             'cate':cate
         }
-        print(data)
-        #douban_flim_TOP250.insert_one(data)
+        douban_flim_TOP250.insert_one(data)
 
 
 urls = ['https://movie.douban.com/top250?start={}'.format(n) for n in range(0,250,25)]
