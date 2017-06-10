@@ -19,7 +19,6 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 UBrowser/6.1.2716.5 Safari/537.36'
 }
 
-
 # 得到返回的 JSON 内的需要的信息
 def get_movie(url):
     page_data = requests.get(url, headers=headers)
