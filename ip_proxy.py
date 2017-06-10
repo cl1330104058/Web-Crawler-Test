@@ -1,3 +1,7 @@
+# -*-coding:utf-8-*-
+#
+# 爬取代理 IP
+
 import time
 import requests
 from bs4 import BeautifulSoup
