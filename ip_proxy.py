@@ -3,7 +3,6 @@
 # 爬取代理 IP
 #
 
-import json
 import time
 import requests
 from bs4 import BeautifulSoup
