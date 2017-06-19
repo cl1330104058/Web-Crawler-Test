@@ -15,6 +15,7 @@ url = 'https://movie.douban.com/chart'
 page_data = requests.get(url, headers=headers)
 soup = BeautifulSoup(page_data.text, 'lxml')
 
+# 爬取豆瓣新片榜
 def douban_xinpian():
     items = soup.find_all('div',{'class':'pl2'})
     for item in items:
@@ -25,6 +26,7 @@ def douban_xinpian():
         print(title,rate,link)
         get_cili(search)
 
+# 爬取豆瓣本周口碑榜
 def douban_week():
     time = soup.find('span',{'class':'box_chart_num'}).get_text()
     print('时间：',time)
@@ -36,7 +38,7 @@ def douban_week():
         link = item.find('a')['href']
         print(No,title,link)
         get_cili(search)
-
+# 获取影片磁力链接
 def get_cili(title):
     url = 'http://www.diaosisou.net/list/{}/1'.format(title)
     page_data = requests.get(url,headers=headers)
@@ -46,6 +48,7 @@ def get_cili(title):
         print('找不到磁力链接')
     else:
         ls = []
+        ls.append('在使用磁力前，请自行验证磁力的正确性！')
         for item in items[0:5]:
             magnet = item.find('a')['href']
             ls.append(magnet)
